@@ -10,9 +10,12 @@
 #include "Data_Types/dtEntrenamiento.h"
 #include "Data_Types/dtSpinning.h"
 using namespace std;
+#define MAX_SOCIOS 50
+
+socio* socios[MAX_SOCIOS] = {nullptr};  
+int cantSocios = 0;
 
 /*
-
 a) void agregarSocio(string ci, string nombre)
 Crea un nuevo socio en el sistema. En caso de ya existir, levanta la excepción
 std::invalid_argument.
@@ -45,17 +48,26 @@ enum Turno {
 };
 
 void agregarSocio(int ci, string nombre){
-    socio ** socios = new socio *[50];
-    int cantSocios = 0;
-    for (int i = 0; i < cantSocios; i++){
-        if (socios[i]->getCi() == ci){
+      
+    for (int i = 0; i < cantSocios ; i++){
+         if (socios[i]->getCi() == ci){
+            
             throw invalid_argument("El socio ya existe");
         }
     }
-    socios[cantSocios++] = new socio(ci, nombre);
-    cout << socios[0] << endl;
+    if (cantSocios < MAX_SOCIOS){
+        socio *s = new socio(ci, nombre);
+        socios[cantSocios] = s;
+        cantSocios++;
+    }else{
+        cout << "No hay mas espacio para socios" << endl;
+    }  
+ };
+void agregarClase(dtClase clase){
+     
+      
+
 };
-void agregarClase(dtClase clase);
 void agregarInscripcion(string ciSocio, int idClase, dtFecha fecha);
 void borrarInscripcion(string ciSocio, int idClase);
 dtSocio ** obtenerInfoSociosPorClase (int idClase, int & cantSocios);
@@ -65,8 +77,13 @@ int main(){
     
     int ci = 12345678;
     string nombre = "Juan";
+    int ci2 = 123445678;
+    string nombre2 = "Juan";
+    
+    
     agregarSocio(ci, nombre);
     
+    agregarSocio(ci2, nombre2); 
 
 
     return 0; 

@@ -10,7 +10,7 @@ class Clase
         string name;
         int turno;
     public:
-        virtual int cupo() = 0;    
+        virtual  int cupo() = 0;    
         Clase(int, string, int);
         int getId();
         string getName();

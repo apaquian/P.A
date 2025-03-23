@@ -4,6 +4,12 @@ bool Entrenamiento::getRambla()
 {
     return this->rambla;  
 }
+
+int Entrenamiento::cupo()
+{
+    return 20;  
+}
+
 void Entrenamiento::setRambla(bool rambla)
 {
     this->rambla = rambla;  

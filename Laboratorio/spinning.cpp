@@ -4,6 +4,11 @@ int Spinning::getSpinning()
 {
     return this->cantBicicletas;  
 }
+int Spinning::cupo()
+{
+    return 1;  
+}
+
 void Spinning::setSpinning(int cantBicicletas)
 {
     this->cantBicicletas = cantBicicletas;  

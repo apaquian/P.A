@@ -21,7 +21,7 @@ main.o:
 	g++ -c main.cpp
 
 clean:
-	rm -f clase.o spinning.o entrenamiento.o inscripcion.o socio.o  main.o  programa
+	rm -f clase.o entrenamiento.o spinning.o  inscripcion.o socio.o  main.o  programa
 
 run:
 	make clean
