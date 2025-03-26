@@ -1,20 +1,17 @@
-#ifndef DIRECCION_H
-#define DIRECCION_H
-
+#ifndef DTSPINNING_H
+#define DTSPINNING_H
 #include <iostream>
 using namespace std;
+#include "Tipos.h"
+#include "dtClase.h"
 
-class Direccion {
-    private:
-        int CP;
-        string calle;
-        int numero;
-    public:
-        Direccion();
-        Direccion(int, string, int);
-        int getCP();
-        string getCalle();
-        int getNumero();
-};
 
+class dtsSpinning   : public dtClase
+{
+    private: 
+        int cantBicicletas;  
+     public:
+        dtsSpinning( int id, string name , Turno turno, int cantBicicletas); 
+        virtual int getCantBicicletas() ;
+ };
 #endif

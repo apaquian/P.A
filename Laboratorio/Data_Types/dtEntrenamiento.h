@@ -2,13 +2,16 @@
 #define DTENTRENAMIENTO_H
 #include <iostream>
 using namespace std;
+#include "Tipos.h"
+#include "dtClase.h"
 
-class dtEntrenamiento 
+class dtEntrenamiento  : public dtClase
 {
     private:   
         bool Rambla;
     public:
-        dtEntrenamiento(bool);
-        bool getRambla();
+        dtEntrenamiento( int id, string name, Turno turno , bool Rambla);
+        virtual bool getRambla();
+    
 };
 #endif

@@ -17,3 +17,5 @@ Spinning::Spinning(int id, string name, int turno, int cantBicicletas) : Clase(i
 {
     this->cantBicicletas = cantBicicletas;
 };
+
+ 

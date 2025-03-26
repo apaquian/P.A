@@ -2,6 +2,7 @@
 #define SPINNING_H
 #include <iostream>
 #include "clase.h"
+#include "Data_Types/dtSpinning.h"
 using namespace std;
 class Spinning  : public Clase
 {
@@ -13,5 +14,6 @@ class Spinning  : public Clase
         ~Spinning();
         int getSpinning();
         void setSpinning(int);
-    };
+        dtsSpinning * getDtsSpinning();
+    }; 
 #endif

@@ -1,16 +1,23 @@
 #include "dtClase.h"
+ 
+dtClase::dtClase(int id, string nombre, Turno turno, dtTipoClase tipoClase) : 
+id(id), nombre(nombre), turno(turno), tipoClase(tipoClase) {
+    
+}
 
-dtClase::dtClase(int i, string name, int t) {
-    this->id = i;
-    this->name = name;
-    this->turno = t;
+
+int dtClase::getId() {
+    return id;
 }
-int dtClase::getId(){
-    return this->id;
+
+string dtClase::getNombre() {
+    return nombre;
 }
-string dtClase::getName(){
-    return this->name;
+
+Turno dtClase::getTurno() {
+    return turno;
 }
-int dtClase::getTurno(){
-    return this->turno;
+
+dtTipoClase dtClase::getTipoClase() {
+    return tipoClase;
 }

@@ -1,6 +1,7 @@
 #ifndef CLASE_H
 #define CLASE_H
 #include <iostream>
+#include "Data_Types/dtClase.h"
 using namespace std;
 
 class Clase 
@@ -17,6 +18,7 @@ class Clase
         int getTurno();
         void setId();
         void setName();
-        void setTurno();
+        void setTurno(); 
+        dtClase * getDtClase();
 };
 #endif

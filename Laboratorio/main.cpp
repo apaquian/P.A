@@ -3,16 +3,15 @@
 #include "socio.h"
 #include "inscripcion.h"
 #include "entrenamiento.h"
-#include "spinning.h"
-#include "Data_Types/Fecha.h"
-#include "Data_Types/dtSocio.h"
-#include "Data_Types/dtClase.h"
-#include "Data_Types/dtEntrenamiento.h"
-#include "Data_Types/dtSpinning.h"
+#include "spinning.h"  
+#include "Data_Types/Tipos.h" 
+#include "Data_Types/dtClase.h" 
+
 using namespace std;
-#define MAX_SOCIOS 50
 
 socio* socios[MAX_SOCIOS] = {nullptr};  
+Clase* clases[MAX_CLASES] = {nullptr};  
+int cantClases = 0;
 int cantSocios = 0;
 
 /*
@@ -41,11 +40,6 @@ Retorna la información de la clase identificada por idClase.
 
 */
 
-enum Turno {
-    Maniana,
-    Tarde,
-    Noche
-};
 
 void agregarSocio(int ci, string nombre){
       
@@ -62,29 +56,76 @@ void agregarSocio(int ci, string nombre){
     }else{
         cout << "No hay mas espacio para socios" << endl;
     }  
- };
-void agregarClase(dtClase clase){
-     
-      
+}
 
-};
-void agregarInscripcion(string ciSocio, int idClase, dtFecha fecha);
-void borrarInscripcion(string ciSocio, int idClase);
-dtSocio ** obtenerInfoSociosPorClase (int idClase, int & cantSocios);
-dtClase obtenerClase(int idClase);
-
-int main(){
+ void agregarClase(dtClase clase){
+    for (int i = 0; i < cantClases ; i++){
+        if (clases[i]->getId() == clase.getId()){
+            throw invalid_argument("La clase ya existe");
+        }
+    } 
+    Clase *c;
+    if (clase.getTipoClase() == SPINNING){
+        c = new Spinning(clase.getId(), clase.getNombre(), clase.getTurno(), clase.getCantBicicletas());
+    }
+    else if (clase.getTipoClase() == ENTRENAMIENTO){
+        c = new Entrenamiento(clase.getId(), clase.getNombre(), clase.getTurno(), clase.getEnRambla());
+    }
     
-    int ci = 12345678;
-    string nombre = "Juan";
-    int ci2 = 123445678;
-    string nombre2 = "Juan";
-    
-    
-    agregarSocio(ci, nombre);
-    
-    agregarSocio(ci2, nombre2); 
+    clases[cantClases] = c;
+    cantClases++;
 
 
-    return 0; 
+    }
+
+// void agregarInscripcion(string ciSocio, int idClase, dtFecha fecha);
+// void borrarInscripcion(string ciSocio, int idClase);
+// dtSocio ** obtenerInfoSociosPorClase (int idClase, int & cantSocios);
+// dtClase obtenerClase(int idClase);
+int main() {
+
+ 
+    try {
+          
+        agregarSocio(67890, "Maria Lopez");
+
+        // Intentar agregar un socio existente
+        try {
+            agregarSocio(12345, "Juan Perez");
+        } catch (const invalid_argument &e) {
+            cout << "Excepción capturada: " << e.what() << endl;
+        }
+
+       
+
+
+        try {
+            agregarClase(dtClase(1, "Spinning", Manana, SPINNING));
+        } catch (const invalid_argument &e) {
+            cout << "Excepción capturada: " << e.what() << endl;
+        }
+
+        cout << "Pruebas completadas exitosamente." << endl;
+    } catch (const exception &e) {
+        cout << "Error inesperado: " << e.what() << endl;
+    }
+
+    // Imprimir socios existentes
+    cout << "Socios existentes:" << endl;
+    for (int i = 0; i < cantSocios; i++) {
+        if (socios[i] != nullptr) {
+            cout << "CI: " << socios[i]->getCi() << ", Nombre: " << socios[i]->getName() << endl;
+        }
+    }
+
+    // Imprimir clases existentes
+    cout << "Clases existentes:" << endl;
+    for (int i = 0; i < cantClases; i++) {
+        if (clases[i] != nullptr) {
+            cout << "ID: " << clases[i]->getId() << ", Nombre: " << clases[i]->getName() 
+                 << ", Turno: " << clases[i]->getTurno() << endl;
+        }
+    }
+
+    return 0;
 }

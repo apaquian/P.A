@@ -1,22 +1,10 @@
-#include "Direccion.h"
+#include "dtSpinning.h"
 
-Direccion::Direccion(){
-    this->CP = 11600;
-    this->calle = "Artigas";
-    this->numero = 452;
+dtsSpinning::dtsSpinning( int id, string name , Turno turno, int cantBicicletas) : dtClase(id, name, turno, SPINNING)
+{
+    this->cantBicicletas = cantBicicletas;
 }
-
-Direccion::Direccion(int cp, string c, int n) {
-    this->CP = cp;
-    this->calle = c;
-    this->numero = n;
-}
-int Direccion::getCP(){
-    return this->CP;
-}
-string Direccion::getCalle(){
-    return this->calle;
-}
-int Direccion::getNumero(){
-    return this->numero;
+int dtsSpinning::getCantBicicletas()
+{
+    return this->cantBicicletas;
 }

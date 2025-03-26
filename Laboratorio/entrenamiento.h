@@ -2,6 +2,7 @@
 #define ENTRENAMIENTO_H
 #include <iostream>
 #include "clase.h"
+#include "Data_Types/dtEntrenamiento.h"
 using namespace std;
 class Entrenamiento : public Clase
 {
@@ -13,6 +14,7 @@ class Entrenamiento : public Clase
         ~Entrenamiento();
         bool getRambla();
         void setRambla(bool);
+        dtEntrenamiento * getDtEntrenamiento();
     };
-#endif
+#endif  
 

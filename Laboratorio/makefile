@@ -1,8 +1,11 @@
-all: clase.o spinning.o entrenamiento.o inscripcion.o socio.o  main.o 
-	g++ clase.o spinning.o entrenamiento.o inscripcion.o socio.o  main.o -o programa
+all: clase.o Data_Types/dtClase.o spinning.o entrenamiento.o inscripcion.o socio.o main.o
+	g++ clase.o Data_Types/dtClase.o spinning.o entrenamiento.o inscripcion.o socio.o main.o -o programa
 
 clase.o:
 	g++ -c clase.cpp
+
+dtClase.o:
+	g++ -c Data_Types/dtClase.cpp
 
 spinning.o:
 	g++ -c spinning.cpp
@@ -16,12 +19,11 @@ socio.o:
 inscripcion.o:
 	g++ -c inscripcion.cpp
 
-
 main.o: 
 	g++ -c main.cpp
 
 clean:
-	rm -f clase.o entrenamiento.o spinning.o  inscripcion.o socio.o  main.o  programa
+	rm -f clase.o Data_Types/dtClase.o entrenamiento.o spinning.o inscripcion.o socio.o main.o programa
 
 run:
 	make clean

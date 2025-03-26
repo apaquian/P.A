@@ -1,6 +1,8 @@
 #ifndef SOCIO_H
 #define SOCIO_H
 using namespace std;
+
+#include "Data_Types/dtSocio.h"
 #include <iostream> 
 class socio
 {
