@@ -9,9 +9,15 @@
 
 using namespace std;
 
+
+Inscripcion ** Inscriptos = new Inscripcion *[MAX_INSCRIPCIONES] ;
 socio* socios[MAX_SOCIOS] = {nullptr};  
-Clase* clases[MAX_CLASES] = {nullptr};  
+Clase* clases[MAX_CLASES] = {nullptr};   
+
+
+
 int cantClases = 0;
+int cantInscripciones = 0;
 int cantSocios = 0;
 
 /*
@@ -41,7 +47,7 @@ Retorna la información de la clase identificada por idClase.
 */
 
 
-void agregarSocio(int ci, string nombre){
+void agregarSocio(string ci, string nombre){
       
     for (int i = 0; i < cantSocios ; i++){
          if (socios[i]->getCi() == ci){
@@ -76,10 +82,58 @@ void agregarSocio(int ci, string nombre){
     cantClases++;
 
 
-    }
+    }  
 
-// void agregarInscripcion(string ciSocio, int idClase, dtFecha fecha);
-// void borrarInscripcion(string ciSocio, int idClase);
+
+void agregarInscripcion( string ciSocio , int idClase ,  dtFecha fecha ){
+    socio *socioInscribir = nullptr;
+    Clase *claseInscribir = nullptr;
+    Inscripcion *inscripcionInscribir = nullptr;  
+    bool inscripcionExistente = false;
+    bool cupoAlcanzado = false;
+    for (int i = 0; i < cantSocios ; i++){
+        if (socios[i]->getCi() == ciSocio){
+            socioInscribir = socios[i];
+            break;
+        }
+    }
+    for (int i = 0; i < cantClases ; i++){
+        if (clases[i]->getId() == idClase){
+            claseInscribir = clases[i];
+            break;
+        }
+    }
+ 
+    inscripcionInscribir = new Inscripcion(idClase, claseInscribir->getName(), claseInscribir->getTurno(), socioInscribir, claseInscribir, &fecha);
+    Inscriptos[cantInscripciones] = inscripcionInscribir;
+    cantInscripciones++;
+    }
+void borrarInscripcion(string cisocio , int idClase){
+        Clase *ClaseSocio = nullptr;
+
+    for (int i = 0; i < cantClases ; i++){
+        if (clases[i]->getId() == idClase){
+            ClaseSocio = clases[i];
+            break;
+        }    
+    } 
+    cout << "ClaseSocio: " << ClaseSocio->getName() << endl;
+    for (int j = 0; j <  cantInscripciones ; j++)
+        { 
+            cout << "Inscriptos[j]->getClase(): " << Inscriptos[j]->getClase()->getName() << endl;
+            cout << "Inscriptos[j]->getSocios()->getCi(): " << Inscriptos[j]->getSocios()->getCi() << endl;
+            if (Inscriptos[j]->getClase() == ClaseSocio && Inscriptos[j]->getSocios()->getCi() == cisocio){
+            cout << "Inscriptos[j]->getSocios()->getCi(): " << Inscriptos[j]->getSocios()->getCi() << endl;
+                delete Inscriptos[j];
+                Inscriptos[j] = nullptr;
+                cantInscripciones--;
+                break;
+ } 
+}
+ 
+}  
+
+ 
 // dtSocio ** obtenerInfoSociosPorClase (int idClase, int & cantSocios);
 // dtClase obtenerClase(int idClase);
 int main() {
@@ -87,17 +141,14 @@ int main() {
  
     try {
           
-        agregarSocio(67890, "Maria Lopez");
-
+        agregarSocio("67890", "Maria Lopez");
+     
         // Intentar agregar un socio existente
         try {
-            agregarSocio(12345, "Juan Perez");
+            agregarSocio("12345", "Juan Perez");
         } catch (const invalid_argument &e) {
             cout << "Excepción capturada: " << e.what() << endl;
         }
-
-       
-
 
         try {
             agregarClase(dtClase(1, "Spinning", Manana, SPINNING));
@@ -109,6 +160,22 @@ int main() {
     } catch (const exception &e) {
         cout << "Error inesperado: " << e.what() << endl;
     }
+    
+    // Agregar Inscripcion 
+    cout << "Pruebas completadas exitosamente.2" << endl;
+
+    try {
+        agregarInscripcion("67890", 1, dtFecha(1, 1, 2021));
+    } catch (const invalid_argument &e) {
+        cout << "Excepción capturada: " << e.what() << endl;
+    }        cout << "Pruebas completadas exitosamente.3" << endl;
+
+     
+    try {
+        agregarInscripcion("12345", 1, dtFecha(1, 1, 2021));
+    } catch (const invalid_argument &e) {
+        cout << "Excepción capturada: " << e.what() << endl;
+    }        cout << "Pruebas completadas exitosamente.7" << endl;
 
     // Imprimir socios existentes
     cout << "Socios existentes:" << endl;
@@ -126,6 +193,36 @@ int main() {
                  << ", Turno: " << clases[i]->getTurno() << endl;
         }
     }
+  
+    // Imprimir inscripciones existentes
+    cout << "Inscripciones existentes:" << endl;
+    for (int i = 0; i < cantInscripciones; i++) {
+        if (Inscriptos[i] != nullptr) {
+            cout << "ID Clase: " << Inscriptos[i]->getClase()->getId() << ", Nombre Clase: " << Inscriptos[i]->getClase()->getName() 
+                 << ", CI Socio: " << Inscriptos[i]->getSocios()->getCi() << ", Nombre Socio: " << Inscriptos[i]->getSocios()->getName() << endl;
+        }
+    }
+  // Borrar Inscripcion
+    cout << "Pruebas completadas exitosamente.4" << endl;
+
+    try {
+        borrarInscripcion("67890", 1);
+    } catch (const invalid_argument &e) {
+        cout << "Excepción capturada: " << e.what() << endl;
+    }
+    cout << "Pruebas completadas exitosamente.5" << endl;
+
+    // Imprimir inscripciones existentes
+    cout << "Inscripciones existentes:" << endl;
+
+    for (int i = 0; i < cantInscripciones; i++) {
+        if (Inscriptos[i] != nullptr) {
+            cout << "ID Clase: " << Inscriptos[i]->getClase()->getId() << ", Nombre Clase: " << Inscriptos[i]->getClase()->getName() 
+                 << ", CI Socio: " << Inscriptos[i]->getSocios()->getCi() << ", Nombre Socio: " << Inscriptos[i]->getSocios()->getName() << endl;
+        }
+    } 
+
+
 
     return 0;
 }

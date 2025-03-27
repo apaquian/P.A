@@ -8,3 +8,5 @@ int dtsSpinning::getCantBicicletas()
 {
     return this->cantBicicletas;
 }
+
+

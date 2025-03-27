@@ -14,3 +14,9 @@ string Clase::getName(){
 int Clase::getTurno(){
     return this->turno;
 }
+
+Inscripcion * Clase::getInscripciones(){
+    return this->inscripto;
+} 
+
+ 

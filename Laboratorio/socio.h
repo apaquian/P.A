@@ -7,14 +7,14 @@ using namespace std;
 class socio
 {
     private:
-        int CI;
+       string CI;
         string name;
     public:
-        socio(int CI, string name );
+        socio(string CI, string name );
         ~socio();
-        int getCi();
-        string getName();
-        void setId(int);
+        string getCi();
+        string getName(); 
+        void setCI(string);
         void setName(string);
  };
 

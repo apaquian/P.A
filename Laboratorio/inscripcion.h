@@ -17,6 +17,13 @@ class Inscripcion
     public:
     Inscripcion(int id, string name, int turno, socio * CI , Clase * idClase, dtFecha * fecha);
     ~Inscripcion();
+    Clase * getClase();
+    socio * getSocios();
+    dtFecha * getFecha();
+    void setClase(Clase * clase);
+    void setSocios(socio * socios);
+    void setFecha(dtFecha * fecha);
+    
     
 };
 
