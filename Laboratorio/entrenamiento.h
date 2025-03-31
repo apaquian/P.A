@@ -2,6 +2,7 @@
 #define ENTRENAMIENTO_H
 #include <iostream>
 #include "clase.h"
+#include "Data_Types/Tipos.h"
 #include "Data_Types/dtEntrenamiento.h"
 using namespace std;
 class Entrenamiento : public Clase
@@ -10,7 +11,8 @@ class Entrenamiento : public Clase
         bool rambla;
     public:
         int cupo();
-        Entrenamiento(int id, string name, int turno, bool rambla);
+        Entrenamiento(int id, string name, Turno turno, bool rambla);
+        
         ~Entrenamiento();
         bool getRambla();
         void setRambla(bool);

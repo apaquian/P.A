@@ -11,7 +11,11 @@ class dtEntrenamiento  : public dtClase
         bool Rambla;
     public:
         dtEntrenamiento( int id, string name, Turno turno , bool Rambla);
-        virtual bool getRambla();
-    
+        ~dtEntrenamiento(){};
+         int getId() ;       
+         string getNombre(); 
+         Turno getTurno(); 
+         dtTipoClase getTipoClase();  // Devuelve si es SPINNING o ENTRENAMIENTO
+         virtual bool getEnRambla();     
 };
 #endif

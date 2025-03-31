@@ -6,14 +6,15 @@ int Spinning::getSpinning()
 }
 int Spinning::cupo()
 {
-    return 1;  
+    return 6;  
 }
 
 void Spinning::setSpinning(int cantBicicletas)
 {
     this->cantBicicletas = cantBicicletas;  
 }
-Spinning::Spinning(int id, string name, int turno, int cantBicicletas) : Clase(id, name, turno)
+ 
+Spinning::Spinning(int id, string name, Turno turno, int cantBicicletas) : Clase(id, name, turno)
 {
     this->cantBicicletas = cantBicicletas;
 };

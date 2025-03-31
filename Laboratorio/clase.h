@@ -12,19 +12,18 @@ class Clase
     private:
         int id;
         string name;
-        int turno; 
-        Inscripcion * inscripto;
+        Turno turno; 
+        Inscripcion ** inscripto;
     public:
       
         virtual  int cupo() = 0;    
-        Clase(int, string, int);
+        Clase(int, string, Turno);
         int getId();
         string getName();
-        int getTurno();
+        Turno getTurno();
         void setId();
         void setName();
-        void setTurno(); 
-        dtClase * getDtClase();
-        Inscripcion * getInscripciones();
+        Turno setTurno();  
+        
 };
 #endif

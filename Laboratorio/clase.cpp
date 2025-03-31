@@ -1,6 +1,6 @@
 #include "clase.h"
 
-Clase::Clase(int id, string name, int turno) {
+Clase::Clase(int id, string name, Turno turno) {
     this-> id = id;
     this->name = name;
     this->turno = turno;
@@ -11,12 +11,15 @@ int Clase::getId(){
 string Clase::getName(){
     return this->name;
 }
-int Clase::getTurno(){
+Turno Clase::getTurno(){
     return this->turno;
 }
-
-Inscripcion * Clase::getInscripciones(){
-    return this->inscripto;
-} 
-
- 
+void Clase::setId(){
+    this->id = id;
+}
+void Clase::setName(){
+    this->name = name;
+}
+Turno Clase::setTurno(){
+    return this->turno;
+}

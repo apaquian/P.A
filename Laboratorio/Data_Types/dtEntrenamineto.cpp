@@ -5,6 +5,23 @@ dtEntrenamiento::dtEntrenamiento( int id, string nombre, Turno turno , bool Ramb
     this->Rambla = Rambla;
 } 
 
-bool dtEntrenamiento::getRambla() {
-    return Rambla;
+bool dtEntrenamiento::getEnRambla()
+{
+    return this->Rambla;
+}
+int dtEntrenamiento::getId()
+{
+    return this->id;
+}
+string dtEntrenamiento::getNombre()
+{
+    return this->nombre;
+}
+Turno dtEntrenamiento::getTurno()
+{
+    return this->turno;
+}
+dtTipoClase dtEntrenamiento::getTipoClase()
+{
+    return this->tipoClase;
 }

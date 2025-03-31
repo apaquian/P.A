@@ -12,7 +12,7 @@ using namespace std;
 
 Inscripcion ** Inscriptos = new Inscripcion *[MAX_INSCRIPCIONES] ;
 socio* socios[MAX_SOCIOS] = {nullptr};  
-Clase* clases[MAX_CLASES] = {nullptr};   
+Clase* clases[MAX_CLASES] = {nullptr};  
 
 
 
@@ -84,143 +84,94 @@ void agregarSocio(string ci, string nombre){
 
     }  
 
+void agregarInscripcion(string ciSocio, int idClase, dtFecha fecha) {
+    socio* socioEncontrado = nullptr;
+    Clase * claseEncontrada = nullptr;
 
-void agregarInscripcion( string ciSocio , int idClase ,  dtFecha fecha ){
-    socio *socioInscribir = nullptr;
-    Clase *claseInscribir = nullptr;
-    Inscripcion *inscripcionInscribir = nullptr;  
-    bool inscripcionExistente = false;
-    bool cupoAlcanzado = false;
-    for (int i = 0; i < cantSocios ; i++){
-        if (socios[i]->getCi() == ciSocio){
-            socioInscribir = socios[i];
+    // Buscar el socio por su CI
+    for (int i = 0; i < cantSocios; i++) {
+        if (socios[i] != nullptr && socios[i]->getCi() == ciSocio) {
+            socioEncontrado = socios[i];
             break;
         }
+    } 
+    for (int i = 0; i < cantClases; i++) {
+        cout << "Clase: " << clases[i]->getName() << " (ID: " << clases[i]->getId() << ")" << endl;
     }
-    for (int i = 0; i < cantClases ; i++){
-        if (clases[i]->getId() == idClase){
-            claseInscribir = clases[i];
+
+    // Buscar la clase por su ID
+    for (int i = 0; i < cantClases; i++) {
+        if (clases[i] != nullptr && clases[i]->getId() == idClase) {
+            claseEncontrada = clases[i];
+         
             break;
-        }
+        }  
+  
     }
  
-    inscripcionInscribir = new Inscripcion(idClase, claseInscribir->getName(), claseInscribir->getTurno(), socioInscribir, claseInscribir, &fecha);
-    Inscriptos[cantInscripciones] = inscripcionInscribir;
+    Inscripcion * nuevaInscripcion = new Inscripcion(idClase , claseEncontrada->getName(), claseEncontrada->getTurno(), socioEncontrado, claseEncontrada, &fecha);
+     Inscriptos[cantInscripciones] = nuevaInscripcion;
     cantInscripciones++;
     }
-void borrarInscripcion(string cisocio , int idClase){
-        Clase *ClaseSocio = nullptr;
-
-    for (int i = 0; i < cantClases ; i++){
-        if (clases[i]->getId() == idClase){
-            ClaseSocio = clases[i];
-            break;
-        }    
-    } 
-    cout << "ClaseSocio: " << ClaseSocio->getName() << endl;
-    for (int j = 0; j <  cantInscripciones ; j++)
-        { 
-            cout << "Inscriptos[j]->getClase(): " << Inscriptos[j]->getClase()->getName() << endl;
-            cout << "Inscriptos[j]->getSocios()->getCi(): " << Inscriptos[j]->getSocios()->getCi() << endl;
-            if (Inscriptos[j]->getClase() == ClaseSocio && Inscriptos[j]->getSocios()->getCi() == cisocio){
-            cout << "Inscriptos[j]->getSocios()->getCi(): " << Inscriptos[j]->getSocios()->getCi() << endl;
-                delete Inscriptos[j];
-                Inscriptos[j] = nullptr;
-                cantInscripciones--;
-                break;
- } 
-}
  
-}  
 
+ /* 
+    void borrarInscripcion(string ciSocio, int idClase) {
+        bool inscripcionEncontrada = false;
+
+        for (int i = 0; i < cantInscripciones; i++) {
+            if (Inscriptos[i] != nullptr &&
+                Inscriptos[i]->getSocios()->getCi() == ciSocio &&
+                Inscriptos[i]->getClase()->getId() == idClase) {
+                
+                delete Inscriptos[i];
+                Inscriptos[i] = nullptr;
+                inscripcionEncontrada = true;
+                break; 
+            }
+        }
+
+        if (!inscripcionEncontrada) {
+            throw invalid_argument("No existe una inscripción de ese socio para esa clase.");
+        }
+    }*/
  
 // dtSocio ** obtenerInfoSociosPorClase (int idClase, int & cantSocios);
 // dtClase obtenerClase(int idClase);
 int main() {
-
- 
+   
+    // Ejemplo de uso de las funciones
     try {
-          
-        agregarSocio("67890", "Maria Lopez");
-     
-        // Intentar agregar un socio existente
-        try {
-            agregarSocio("12345", "Juan Perez");
-        } catch (const invalid_argument &e) {
-            cout << "Excepción capturada: " << e.what() << endl;
-        }
+        agregarSocio("12345678", "Juan Perez");
+        agregarSocio("87654321", "Maria Lopez");
 
-        try {
-            agregarClase(dtClase(1, "Spinning", Manana, SPINNING));
-        } catch (const invalid_argument &e) {
-            cout << "Excepción capturada: " << e.what() << endl;
-        }
+        dtClase clase1(1, "Spinning", Manana, SPINNING);
+        agregarClase(clase1);
 
-        cout << "Pruebas completadas exitosamente." << endl;
-    } catch (const exception &e) {
-        cout << "Error inesperado: " << e.what() << endl;
+        dtClase clase2(2, "Entrenamiento", Tarde, ENTRENAMIENTO);
+        agregarClase(clase2);
+
+        dtFecha fecha(2023, 10, 15);
+        agregarInscripcion("12345678", 1, fecha);
+        agregarInscripcion("87654321", 2, fecha);
+
+    } catch (const std::invalid_argument& e) {
+        cout << "Error: " << e.what() << endl;
+    }
+    // Imprimir los socios y clases para verificar que se hayan agregado correctamente
+    for (int i = 0; i < cantSocios; i++) {
+        cout << "Socio: " << socios[i]->getName() << " (CI: " << socios[i]->getCi() << ")" << endl;
+    }
+    for (int i = 0; i < cantClases; i++) {
+        cout << "Clase: " << clases[i]->getName() << " (ID: " << clases[i]->getId() << ")" << endl;
+    }
+    cout << "Inscripciones: "<< cantInscripciones << endl;
+    for (int i = 0; i < cantInscripciones; i++) {
+       
+
+        cout << "Inscripcion: " << Inscriptos[i]->getSocios()->getName() << " a la clase " << Inscriptos[i]->getClase()->getName() << Inscriptos[i]->getFecha()->getAnio()<< endl;
     }
     
-    // Agregar Inscripcion 
-    cout << "Pruebas completadas exitosamente.2" << endl;
-
-    try {
-        agregarInscripcion("67890", 1, dtFecha(1, 1, 2021));
-    } catch (const invalid_argument &e) {
-        cout << "Excepción capturada: " << e.what() << endl;
-    }        cout << "Pruebas completadas exitosamente.3" << endl;
-
-     
-    try {
-        agregarInscripcion("12345", 1, dtFecha(1, 1, 2021));
-    } catch (const invalid_argument &e) {
-        cout << "Excepción capturada: " << e.what() << endl;
-    }        cout << "Pruebas completadas exitosamente.7" << endl;
-
-    // Imprimir socios existentes
-    cout << "Socios existentes:" << endl;
-    for (int i = 0; i < cantSocios; i++) {
-        if (socios[i] != nullptr) {
-            cout << "CI: " << socios[i]->getCi() << ", Nombre: " << socios[i]->getName() << endl;
-        }
-    }
-
-    // Imprimir clases existentes
-    cout << "Clases existentes:" << endl;
-    for (int i = 0; i < cantClases; i++) {
-        if (clases[i] != nullptr) {
-            cout << "ID: " << clases[i]->getId() << ", Nombre: " << clases[i]->getName() 
-                 << ", Turno: " << clases[i]->getTurno() << endl;
-        }
-    }
-  
-    // Imprimir inscripciones existentes
-    cout << "Inscripciones existentes:" << endl;
-    for (int i = 0; i < cantInscripciones; i++) {
-        if (Inscriptos[i] != nullptr) {
-            cout << "ID Clase: " << Inscriptos[i]->getClase()->getId() << ", Nombre Clase: " << Inscriptos[i]->getClase()->getName() 
-                 << ", CI Socio: " << Inscriptos[i]->getSocios()->getCi() << ", Nombre Socio: " << Inscriptos[i]->getSocios()->getName() << endl;
-        }
-    }
-  // Borrar Inscripcion
-    cout << "Pruebas completadas exitosamente.4" << endl;
-
-    try {
-        borrarInscripcion("67890", 1);
-    } catch (const invalid_argument &e) {
-        cout << "Excepción capturada: " << e.what() << endl;
-    }
-    cout << "Pruebas completadas exitosamente.5" << endl;
-
-    // Imprimir inscripciones existentes
-    cout << "Inscripciones existentes:" << endl;
-
-    for (int i = 0; i < cantInscripciones; i++) {
-        if (Inscriptos[i] != nullptr) {
-            cout << "ID Clase: " << Inscriptos[i]->getClase()->getId() << ", Nombre Clase: " << Inscriptos[i]->getClase()->getName() 
-                 << ", CI Socio: " << Inscriptos[i]->getSocios()->getCi() << ", Nombre Socio: " << Inscriptos[i]->getSocios()->getName() << endl;
-        }
-    } 
 
 
 

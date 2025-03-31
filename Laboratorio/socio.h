@@ -3,6 +3,8 @@
 using namespace std;
 
 #include "Data_Types/dtSocio.h"
+#include "inscripcion.h"
+class Inscripcion;
 #include <iostream> 
 class socio
 {
@@ -14,7 +16,7 @@ class socio
         ~socio();
         string getCi();
         string getName(); 
-        void setCI(string);
+        void setCI(string); 
         void setName(string);
  };
 
