@@ -13,8 +13,8 @@ class Spinning  : public Clase
         int cupo();
         Spinning(int id, string name, Turno turno, int cantBicicletas);
         ~Spinning();
-        int getSpinning();
-        void setSpinning(int);
+        int getBicicleta();
+        void setBicicleta(int);
         dtsSpinning * getDtsSpinning();
     }; 
 #endif

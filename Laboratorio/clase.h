@@ -15,7 +15,6 @@ class Clase
         Turno turno; 
         Inscripcion ** inscripto;
     public:
-      
         virtual  int cupo() = 0;    
         Clase(int, string, Turno);
         int getId();
